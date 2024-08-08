@@ -1,0 +1,8 @@
+
+
+train: C:\Users\jaehy\test\yolov5\yolov5\custom\train\images\
+val: C:\Users\jaehy\test\yolov5\yolov5\custom\valid\images\
+test: C:\Users\jaehy\test\yolov5\yolov5\custom\test\images\
+
+nc: 3
+names: ['bus', 'car', 'motorcycle']

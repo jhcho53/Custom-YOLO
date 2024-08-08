@@ -1,0 +1,13 @@
+train: C:/Users/jaehy/test/yolov5-knowledge-distillation1/custom/test/images
+val: C:/Users/jaehy/test/yolov5-knowledge-distillation1/custom/test/images
+test: C:/Users/jaehy/test/yolov5-knowledge-distillation1/custom/test/images
+
+nc: 3
+names: ['bus', 'car', 'motorcycle']
+
+roboflow:
+  workspace: hhh-r1vsi
+  project: traffic-2-taezz
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/hhh-r1vsi/traffic-2-taezz/dataset/2

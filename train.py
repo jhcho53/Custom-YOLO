@@ -66,6 +66,7 @@ from utils.plots import plot_evolve
 from utils.torch_utils import (EarlyStopping, ModelEMA, de_parallel, select_device, smart_DDP, smart_optimizer,
                                smart_resume, torch_distributed_zero_first)
 
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 LOCAL_RANK = int(os.getenv('LOCAL_RANK', -1))  # https://pytorch.org/docs/stable/elastic/run.html
 RANK = int(os.getenv('RANK', -1))
 WORLD_SIZE = int(os.getenv('WORLD_SIZE', 1))
@@ -85,7 +86,7 @@ def train(hyp, opt, device, callbacks):  # hyp is path/to/hyp.yaml or hyp dictio
 
     # Hyperparameters
     if isinstance(hyp, str):
-        with open(hyp) as f:
+        with open(hyp ,encoding='utf-8') as f:
             hyp = yaml.safe_load(f)  # load hyps dict
     LOGGER.info(colorstr('hyperparameters: ') + ', '.join(f'{k}={v}' for k, v in hyp.items()))
     opt.hyp = hyp.copy()  # for saving hyps to checkpoints
@@ -550,7 +551,7 @@ def main(opt, callbacks=Callbacks()):
         opt_yaml = last.parent.parent / 'opt.yaml'  # train options yaml
         opt_data = opt.data  # original dataset
         if opt_yaml.is_file():
-            with open(opt_yaml, errors='ignore') as f:
+            with open(opt_yaml, encoding='utf-8', errors='ignore') as f:
                 d = yaml.safe_load(f)
         else:
             d = torch.load(last, map_location='cpu')['opt']
@@ -621,7 +622,7 @@ def main(opt, callbacks=Callbacks()):
             'mixup': (1, 0.0, 1.0),  # image mixup (probability)
             'copy_paste': (1, 0.0, 1.0)}  # segment copy-paste (probability)
 
-        with open(opt.hyp) as f:
+        with open(opt.hyp ,encoding='utf-8') as f:
             hyp = yaml.safe_load(f)  # load hyps dict
             if 'anchors' not in hyp:  # anchors commented in hyp.yaml
                 hyp['anchors'] = 3
